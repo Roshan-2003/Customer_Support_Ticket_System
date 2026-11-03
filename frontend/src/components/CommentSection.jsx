@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { MessageSquare, Send } from "lucide-react";
 
 import { addComment, getComments } from "../services/ticketApi";
 import Loader from "./Loader";
@@ -55,57 +56,67 @@ const CommentSection = ({ ticketId, resolved }) => {
   };
 
   return (
-    <div className="rounded-xl border bg-white p-6">
-      <h3 className="mb-4 text-xl font-bold text-gray-800">
-        Comments
-      </h3>
+    <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 md:p-8 shadow-xs">
+      <div className="flex items-center gap-2 mb-5">
+        <MessageSquare size={20} className="text-indigo-600" />
+        <h3 className="text-base sm:text-lg md:text-xl font-bold text-slate-800 tracking-tight">
+          Conversation ({comments.length})
+        </h3>
+      </div>
 
       {loading ? (
         <Loader />
       ) : comments.length === 0 ? (
-        <p className="rounded-lg bg-gray-50 p-4 text-sm text-gray-500">
-          No comments yet.
-        </p>
+        <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-6 text-center text-xs sm:text-sm text-slate-500">
+          No comments yet. Start the conversation below.
+        </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-3.5 mb-6">
           {comments.map((item) => (
             <div
               key={item.id}
-              className="rounded-lg border border-gray-200 bg-gray-50 p-4"
+              className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-4 transition-colors"
             >
-              <p className="text-sm leading-6 text-gray-700">
+              <div className="flex items-center justify-between gap-2 mb-1.5">
+                <span className="text-xs font-semibold text-slate-800">Support Note</span>
+                <span className="text-[10px] sm:text-xs text-slate-400">
+                  {new Date(item.created_at).toLocaleString()}
+                </span>
+              </div>
+              <p className="text-xs sm:text-sm md:text-base leading-relaxed text-slate-700 whitespace-pre-wrap">
                 {item.comment}
-              </p>
-              <p className="mt-2 text-xs text-gray-500">
-                {new Date(item.created_at).toLocaleString()}
               </p>
             </div>
           ))}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="mt-5 space-y-3">
-        <textarea
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          rows="4"
-          disabled={resolved}
-          placeholder={
-            resolved
-              ? "This ticket is resolved. You cannot add more comments."
-              : "Write a comment..."
-          }
-          className="w-full rounded-lg border px-4 py-3 outline-none focus:border-blue-500 disabled:bg-gray-100 disabled:text-gray-500"
-        />
+      {resolved ? (
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs sm:text-sm text-amber-800">
+          This ticket has been marked as <strong>Resolved</strong>. Comments are disabled.
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            rows="3"
+            placeholder="Type your response or update here..."
+            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
+          />
 
-        <button
-          type="submit"
-          disabled={submitting || resolved || !comment.trim()}
-          className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-60"
-        >
-          {submitting ? "Adding..." : "Add Comment"}
-        </button>
-      </form>
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              disabled={submitting || !comment.trim()}
+              className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-xs sm:text-sm md:text-base font-semibold text-white shadow-sm hover:bg-indigo-700 hover:shadow disabled:opacity-50 transition-all active:scale-[0.98]"
+            >
+              <Send size={15} />
+              {submitting ? "Sending..." : "Post Comment"}
+            </button>
+          </div>
+        </form>
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { ArrowLeft, Plus } from "lucide-react";
+import { Send, ArrowLeft } from "lucide-react";
 
 import { createTicket } from "../services/ticketApi";
 import { useTickets } from "../context/TicketContext";
@@ -60,21 +60,19 @@ const CreateTicket = () => {
   };
 
   return (
-    <div className="mx-auto w-full max-w-6xl space-y-6">
-      <div>
-  
+    <div className="mx-auto max-w-6xl">
+      <div className="mb-6 sm:mb-8 flex items-center justify-between">
+    
       </div>
 
-      {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="space-y-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-7"
+        className="space-y-5 rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-7 md:p-8 shadow-xs"
       >
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {/* Customer Name */}
+        <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block text-sm font-semibold text-gray-700">
-              Customer Name
+            <label className="mb-1.5 block text-xs sm:text-sm font-semibold text-slate-700">
+              Customer Name <span className="text-rose-500">*</span>
             </label>
 
             <input
@@ -83,15 +81,14 @@ const CreateTicket = () => {
               value={formData.customer_name}
               onChange={handleChange}
               required
-              placeholder="Enter customer name"
-              className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
+              placeholder="e.g. John Doe"
+              className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
             />
           </div>
 
-          {/* Customer Email */}
           <div>
-            <label className="mb-2 block text-sm font-semibold text-gray-700">
-              Customer Email
+            <label className="mb-1.5 block text-xs sm:text-sm font-semibold text-slate-700">
+              Customer Email <span className="text-rose-500">*</span>
             </label>
 
             <input
@@ -100,51 +97,31 @@ const CreateTicket = () => {
               value={formData.customer_email}
               onChange={handleChange}
               required
-              placeholder="Enter customer email"
-              className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
+              placeholder="e.g. john@example.com"
+              className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
             />
-          </div>
-
-          {/* Subject */}
-          <div>
-            <label className="mb-2 block text-sm font-semibold text-gray-700">
-              Subject
-            </label>
-
-            <input
-              type="text"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-              placeholder="Enter ticket subject"
-              className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
-            />
-          </div>
-
-          {/* Priority */}
-          <div>
-            <label className="mb-2 block text-sm font-semibold text-gray-700">
-              Priority
-            </label>
-
-            <select
-              name="priority"
-              value={formData.priority}
-              onChange={handleChange}
-              className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
-            >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
           </div>
         </div>
 
-        {/* Description - Full Width */}
         <div>
-          <label className="mb-2 block text-sm font-semibold text-gray-700">
-            Description
+          <label className="mb-1.5 block text-xs sm:text-sm font-semibold text-slate-700">
+            Ticket Subject <span className="text-rose-500">*</span>
+          </label>
+
+          <input
+            type="text"
+            name="subject"
+            value={formData.subject}
+            onChange={handleChange}
+            required
+            placeholder="Brief summary of the issue"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
+          />
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-xs sm:text-sm font-semibold text-slate-700">
+            Description <span className="text-rose-500">*</span>
           </label>
 
           <textarea
@@ -152,18 +129,34 @@ const CreateTicket = () => {
             value={formData.description}
             onChange={handleChange}
             required
-            rows={5}
-            placeholder="Describe the customer issue..."
-            className="w-full resize-y rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm leading-6 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-50"
+            rows="5"
+            placeholder="Provide full details about the issue..."
+            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
           />
         </div>
 
-        {/* Buttons */}
-        <div className="flex flex-wrap justify-end gap-3 border-t border-gray-100 pt-5">
+        <div>
+          <label className="mb-1.5 block text-xs sm:text-sm font-semibold text-slate-700">
+            Priority Level
+          </label>
+
+          <select
+            name="priority"
+            value={formData.priority}
+            onChange={handleChange}
+            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
+          >
+            <option value="low">Low Priority (General Inquiry)</option>
+            <option value="medium">Medium Priority (Standard Issue)</option>
+            <option value="high">High Priority (Urgent Attention)</option>
+          </select>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-end gap-3 pt-4 border-t border-slate-100">
           <button
             type="button"
             onClick={() => navigate("/tickets")}
-            className="rounded-xl border border-gray-200 px-5 py-3 text-sm font-semibold text-gray-600 transition hover:bg-gray-50"
+            className="rounded-xl border border-slate-200 bg-white px-4 sm:px-5 py-2.5 text-xs sm:text-sm md:text-base font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
           >
             Cancel
           </button>
@@ -171,10 +164,10 @@ const CreateTicket = () => {
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-5 sm:px-6 py-2.5 text-xs sm:text-sm md:text-base font-semibold text-white shadow-sm hover:from-indigo-700 hover:to-violet-700 hover:shadow-md disabled:opacity-50 transition-all active:scale-[0.98]"
           >
-            <Plus size={18} />
-            {loading ? "Creating..." : "Create Ticket"}
+            <Send size={16} />
+            {loading ? "Creating..." : "Submit Ticket"}
           </button>
         </div>
       </form>

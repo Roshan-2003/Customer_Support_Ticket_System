@@ -1,17 +1,17 @@
 const PriorityBadge = ({ priority }) => {
   const styles = {
-    low: "bg-green-100 text-green-700",
-    medium: "bg-yellow-100 text-yellow-700",
-    high: "bg-red-100 text-red-700",
+    low: "bg-teal-50 text-teal-700 border-teal-200",
+    medium: "bg-amber-50 text-amber-700 border-amber-200",
+    high: "bg-rose-50 text-rose-700 border-rose-200",
   };
 
   return (
     <span
-      className={`rounded-full px-3 py-1 text-xs font-semibold ${
-        styles[priority] || "bg-gray-100 text-gray-700"
+      className={`inline-flex items-center rounded-md border px-2 sm:px-2.5 py-0.5 text-[10px] sm:text-xs font-semibold uppercase tracking-wider transition-colors ${
+        styles[priority] || "bg-slate-100 text-slate-700 border-slate-200"
       }`}
     >
-      {priority?.toUpperCase()}
+      {priority || "normal"}
     </span>
   );
 };
