@@ -6,6 +6,7 @@ import {
   CheckCircle,
   CircleDot,
   Plus,
+  ArrowUpRight,
 } from "lucide-react";
 
 import { useTickets } from "../context/TicketContext";
@@ -33,105 +34,130 @@ const Dashboard = () => {
       title: "Total Tickets",
       value: dashboard.total,
       icon: Ticket,
-      color: "bg-blue-100 text-blue-600",
+      color: "bg-blue-50 text-blue-600",
+      accent: "border-l-blue-500",
     },
     {
-      title: "Open",
+      title: "Open Tickets",
       value: dashboard.open,
       icon: CircleDot,
-      color: "bg-sky-100 text-sky-600",
+      color: "bg-sky-50 text-sky-600",
+      accent: "border-l-sky-500",
     },
     {
       title: "In Progress",
       value: dashboard.in_progress,
       icon: Clock,
-      color: "bg-yellow-100 text-yellow-600",
+      color: "bg-amber-50 text-amber-600",
+      accent: "border-l-amber-500",
     },
     {
       title: "Resolved",
       value: dashboard.resolved,
       icon: CheckCircle,
-      color: "bg-green-100 text-green-600",
+      color: "bg-emerald-50 text-emerald-600",
+      accent: "border-l-emerald-500",
     },
   ];
 
   return (
-    <div>
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+    <div className="mx-auto w-full max-w-7xl space-y-8">
+      {/* Page Header */}
+      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">
-            Dashboard
-          </h1>
-
-          <p className="mt-1 text-sm text-gray-500">
-            Manage and track customer support tickets.
-          </p>
+   
         </div>
 
         <Link
           to="/tickets/create"
-          className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
+          className="inline-flex w-fit items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100"
         >
           <Plus size={18} />
           Create Ticket
         </Link>
       </div>
 
-      <div className="mb-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-        {stats.map((item) => {
-          const Icon = item.icon;
+      {/* Statistics */}
+      <section>
+        <div className="mb-4">
+        
+        </div>
 
-          return (
-            <div
-              key={item.title}
-              className="rounded-xl border bg-white p-5"
-            >
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-gray-500">
-                  {item.title}
-                </p>
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {stats.map((item) => {
+            const Icon = item.icon;
 
-                <div className={`rounded-lg p-3 ${item.color}`}>
-                  <Icon size={21} />
+            return (
+              <div
+                key={item.title}
+                className={`rounded-2xl border border-gray-100 border-l-4 ${item.accent} bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md`}
+              >
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium text-gray-500">
+                    {item.title}
+                  </p>
+
+                  <div className={`rounded-xl p-3 ${item.color}`}>
+                    <Icon size={21} strokeWidth={2} />
+                  </div>
+                </div>
+
+                <div className="mt-5 flex items-end justify-between">
+                  <h3 className="text-3xl font-bold tracking-tight text-gray-900">
+                    {item.value ?? 0}
+                  </h3>
+
+                  <span className="text-xs font-medium text-gray-400">
+                    Tickets
+                  </span>
                 </div>
               </div>
-
-              <h2 className="mt-4 text-3xl font-bold text-gray-800">
-                {item.value}
-              </h2>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="mb-5 flex items-center justify-between">
-        <h2 className="text-xl font-bold text-gray-800">
-          Recent Tickets
-        </h2>
-
-        <Link
-          to="/tickets"
-          className="text-sm font-medium text-blue-600 hover:underline"
-        >
-          View All
-        </Link>
-      </div>
-
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <p className="rounded-lg bg-red-50 p-4 text-red-600">
-          {error}
-        </p>
-      ) : tickets.length === 0 ? (
-        <EmptyState message="No tickets available" />
-      ) : (
-        <div className="grid gap-5 lg:grid-cols-2">
-          {tickets.slice(0, 4).map((ticket) => (
-            <TicketCard key={ticket.id} ticket={ticket} />
-          ))}
+            );
+          })}
         </div>
-      )}
+      </section>
+
+      {/* Recent Tickets */}
+      <section>
+        <div className="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+          <div>
+            <h2 className="text-lg font-semibold text-gray-800">
+              Recent Tickets
+            </h2>
+            <p className="mt-1 text-sm text-gray-500">
+              Latest customer support requests
+            </p>
+          </div>
+
+          <Link
+            to="/tickets"
+            className="inline-flex w-fit items-center gap-1 text-sm font-semibold text-blue-600 transition hover:text-blue-700"
+          >
+            View All Tickets
+            <ArrowUpRight size={16} />
+          </Link>
+        </div>
+
+        {loading ? (
+          <div className="rounded-2xl border border-gray-100 bg-white py-12">
+            <Loader />
+          </div>
+        ) : error ? (
+          <div className="rounded-xl border border-red-100 bg-red-50 p-4 text-sm text-red-600">
+            {error}
+          </div>
+        ) : tickets.length === 0 ? (
+          <div className="rounded-2xl border border-gray-100 bg-white py-10">
+            <EmptyState message="No tickets available" />
+          </div>
+        ) : (
+          <div className="grid gap-5 lg:grid-cols-2">
+            {tickets.slice(0, 4).map((ticket) => (
+              <TicketCard key={ticket.id} ticket={ticket} />
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 };

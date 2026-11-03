@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Plus } from "lucide-react";
+import {
+  Plus,
+  Ticket,
+  Search,
+  ArrowUpRight,
+} from "lucide-react";
 
 import { useTickets } from "../context/TicketContext";
 import TicketFilters from "../components/TicketFilters";
@@ -29,48 +34,63 @@ const TicketList = () => {
   }, [search, status, priority, fetchTickets]);
 
   return (
-    <div>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+    <div className="mx-auto w-full max-w-7xl space-y-7">
+      {/* Page Header */}
+      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">
-            All Tickets
-          </h1>
-
-          <p className="mt-1 text-sm text-gray-500">
-            Search and manage all customer tickets.
-          </p>
+     
         </div>
 
         <Link
           to="/tickets/create"
-          className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm text-white hover:bg-blue-700"
+          className="inline-flex w-fit items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100"
         >
           <Plus size={18} />
           Create Ticket
         </Link>
       </div>
 
-      <TicketFilters
-        search={search}
-        setSearch={setSearch}
-        status={status}
-        setStatus={setStatus}
-        priority={priority}
-        setPriority={setPriority}
-      />
+      {/* Filters */}
+    <TicketFilters
+  search={search}
+  setSearch={setSearch}
+  status={status}
+  setStatus={setStatus}
+  priority={priority}
+  setPriority={setPriority}
+/>
 
-      <p className="mb-4 text-sm text-gray-500">
-        {tickets.length} tickets found
-      </p>
+      {/* Ticket Count */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 className="text-lg font-semibold text-gray-800">
+            Tickets
+          </h2>
 
+          <p className="mt-1 text-sm text-gray-500">
+            {tickets.length} {tickets.length === 1 ? "ticket" : "tickets"} found
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2 rounded-lg bg-blue-50 px-3 py-2 text-sm font-medium text-blue-700">
+          <Ticket size={16} />
+          Ticket List
+        </div>
+      </div>
+
+      {/* Ticket Results */}
       {loading ? (
-        <Loader />
+        <div className="rounded-2xl border border-gray-100 bg-white py-12">
+          <Loader />
+        </div>
       ) : error ? (
-        <p className="rounded-lg bg-red-50 p-4 text-red-600">
+        <div className="rounded-xl border border-red-100 bg-red-50 p-4 text-sm text-red-600">
           {error}
-        </p>
+        </div>
       ) : tickets.length === 0 ? (
-        <EmptyState message="No matching tickets found" />
+        <div className="rounded-2xl border border-gray-100 bg-white py-10">
+          <EmptyState message="No matching tickets found" />
+        </div>
       ) : (
         <div className="grid gap-5 lg:grid-cols-2">
           {tickets.map((ticket) => (
