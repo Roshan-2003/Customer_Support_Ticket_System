@@ -54,7 +54,7 @@ const TicketFilters = ({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by subject or description..."
-              className="w-full rounded-xl border border-slate-200 bg-slate-50/60 pl-10 pr-8 py-2.5 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
+              className="w-full rounded-xl border border-slate-200  pl-10 pr-8 py-2.5 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 outline-none  transition-all"
             />
             {search && (
               <button
@@ -76,7 +76,7 @@ const TicketFilters = ({
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 py-2.5 text-xs sm:text-sm text-slate-800 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
+            className="w-full rounded-xl border border-slate-200  px-3.5 py-2.5 text-xs sm:text-sm text-slate-800 outline-none  transition-all"
           >
             <option value="">All Statuses</option>
             <option value="open">Open</option>
@@ -93,7 +93,7 @@ const TicketFilters = ({
           <select
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 py-2.5 text-xs sm:text-sm text-slate-800 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
+            className="w-full rounded-xl border border-slate-200  px-3.5 py-2.5 text-xs sm:text-sm text-slate-800 outline-none  transition-all"
           >
             <option value="">All Priorities</option>
             <option value="low">Low Priority</option>

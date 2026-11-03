@@ -102,7 +102,7 @@ const CommentSection = ({ ticketId, resolved }) => {
             onChange={(e) => setComment(e.target.value)}
             rows="3"
             placeholder="Type your response or update here..."
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 p-3.5 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
+            className="w-full rounded-xl border border-slate-200  p-3.5 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none  transition-all"
           />
 
           <div className="flex justify-end">

@@ -82,7 +82,7 @@ const CreateTicket = () => {
               onChange={handleChange}
               required
               placeholder="e.g. John Doe"
-              className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
+              className="w-full rounded-xl border border-slate-200  px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none  transition-all"
             />
           </div>
 
@@ -98,7 +98,7 @@ const CreateTicket = () => {
               onChange={handleChange}
               required
               placeholder="e.g. john@example.com"
-              className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
+              className="w-full rounded-xl border border-slate-200  px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none  transition-all"
             />
           </div>
         </div>
@@ -115,7 +115,7 @@ const CreateTicket = () => {
             onChange={handleChange}
             required
             placeholder="Brief summary of the issue"
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
+            className="w-full rounded-xl border border-slate-200  px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none  transition-all"
           />
         </div>
 
@@ -131,7 +131,7 @@ const CreateTicket = () => {
             required
             rows="5"
             placeholder="Provide full details about the issue..."
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
+            className="w-full rounded-xl border border-slate-200  px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none  transition-all"
           />
         </div>
 
@@ -144,7 +144,7 @@ const CreateTicket = () => {
             name="priority"
             value={formData.priority}
             onChange={handleChange}
-            className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 transition-all"
+            className="w-full rounded-xl border border-slate-200  px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base text-slate-800 outline-none  transition-all"
           >
             <option value="low">Low Priority (General Inquiry)</option>
             <option value="medium">Medium Priority (Standard Issue)</option>

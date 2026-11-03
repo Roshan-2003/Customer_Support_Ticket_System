@@ -100,7 +100,7 @@ const TicketDetails = () => {
               </span>
             </div>
 
-            <h1 className="mt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h1 className="mt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mt-2 text-slate-900 tracking-tight">
               {ticket.subject}
             </h1>
           </div>
@@ -190,7 +190,7 @@ const TicketDetails = () => {
             value={ticket.status}
             onChange={handleStatusChange}
             disabled={updating}
-            className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-xs sm:text-sm md:text-base text-slate-800 outline-none focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 disabled:opacity-50 transition-all font-semibold"
+            className="rounded-xl border border-slate-200  px-4 py-2.5 text-xs sm:text-sm md:text-base text-slate-800 outline-none   disabled:opacity-50 transition-all font-semibold"
           >
             <option value="open">Open</option>
             <option value="in_progress">In Progress</option>

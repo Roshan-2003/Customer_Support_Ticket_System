@@ -7,6 +7,7 @@ import {
   CircleDot,
   Plus,
   ArrowRight,
+  MessageSquareWarning,
 } from "lucide-react";
 
 import { useTickets } from "../context/TicketContext";
@@ -40,7 +41,7 @@ const Dashboard = () => {
     {
       title: "Open Tickets",
       value: dashboard.open,
-      icon: CircleDot,
+      icon: MessageSquareWarning,
       iconBg: "bg-sky-100 text-sky-600",
       cardBorder: "hover:border-sky-300",
     },
