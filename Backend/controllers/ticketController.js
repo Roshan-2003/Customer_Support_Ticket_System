@@ -2,14 +2,10 @@ const db = require("../config/db");
 
 const { tickets } = require("../database/schema");
 
-const { eq, ilike, and, desc, sql } = require("drizzle-orm");
+const { eq, ilike, and, or, desc, sql } = require("drizzle-orm");
 
-const {
-  validateTicket,
-  isValidStatus,
-} = require("../utils/validators");
+const { validateTicket, isValidStatus } = require("../utils/validators");
 
-// POST: Create Ticket
 const createTicket = async (req, res) => {
   try {
     const validation = validateTicket(req.body);
@@ -21,13 +17,8 @@ const createTicket = async (req, res) => {
       });
     }
 
-    const {
-      customer_name,
-      customer_email,
-      subject,
-      description,
-      priority,
-    } = req.body;
+    const { customer_name, customer_email, subject, description, priority } =
+      req.body;
 
     const [ticket] = await db
       .insert(tickets)
@@ -56,17 +47,20 @@ const createTicket = async (req, res) => {
 // GET: All Tickets + Search + Filter
 const getAllTickets = async (req, res) => {
   try {
-    const {
-      search = "",
-      status = "",
-      priority = "",
-    } = req.query;
+    const { search = "", status = "", priority = "" } = req.query;
 
     const conditions = [];
 
     if (search.trim()) {
+      const searchTerm = search.trim();
+
       conditions.push(
-        ilike(tickets.subject, `%${search.trim()}%`)
+        or(
+          ilike(tickets.subject, `%${searchTerm}%`),
+          ilike(tickets.description, `%${searchTerm}%`),
+          ilike(tickets.customer_name, `%${searchTerm}%`),
+          ilike(tickets.customer_email, `%${searchTerm}%`)
+        )
       );
     }
 
@@ -95,11 +89,7 @@ const getAllTickets = async (req, res) => {
     const result = await db
       .select()
       .from(tickets)
-      .where(
-        conditions.length > 0
-          ? and(...conditions)
-          : undefined
-      )
+      .where(conditions.length > 0 ? and(...conditions) : undefined)
       .orderBy(desc(tickets.created_at));
 
     res.status(200).json({
@@ -127,10 +117,7 @@ const getTicketById = async (req, res) => {
       });
     }
 
-    const [ticket] = await db
-      .select()
-      .from(tickets)
-      .where(eq(tickets.id, id));
+    const [ticket] = await db.select().from(tickets).where(eq(tickets.id, id));
 
     if (!ticket) {
       return res.status(404).json({

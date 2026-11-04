@@ -9,18 +9,10 @@ const {
 } = require("drizzle-orm/pg-core");
 
 // Priority Enum
-const priorityEnum = pgEnum("priority", [
-  "low",
-  "medium",
-  "high",
-]);
+const priorityEnum = pgEnum("priority", ["low", "medium", "high"]);
 
 // Ticket Status Enum
-const statusEnum = pgEnum("ticket_status", [
-  "open",
-  "in_progress",
-  "resolved",
-]);
+const statusEnum = pgEnum("ticket_status", ["open", "in_progress", "resolved"]);
 
 // Tickets Table
 const tickets = pgTable("tickets", {
@@ -42,17 +34,11 @@ const tickets = pgTable("tickets", {
 
   priority: priorityEnum("priority").notNull(),
 
-  status: statusEnum("status")
-    .default("open")
-    .notNull(),
+  status: statusEnum("status").default("open").notNull(),
 
-  created_at: timestamp("created_at")
-    .defaultNow()
-    .notNull(),
+  created_at: timestamp("created_at").defaultNow().notNull(),
 
-  updated_at: timestamp("updated_at")
-    .defaultNow()
-    .notNull(),
+  updated_at: timestamp("updated_at").defaultNow().notNull(),
 });
 
 // Ticket Comments Table
@@ -67,9 +53,7 @@ const ticketComments = pgTable("ticket_comments", {
 
   comment: text("comment").notNull(),
 
-  created_at: timestamp("created_at")
-    .defaultNow()
-    .notNull(),
+  created_at: timestamp("created_at").defaultNow().notNull(),
 });
 
 module.exports = {

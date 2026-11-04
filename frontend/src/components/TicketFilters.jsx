@@ -1,4 +1,4 @@
-import { Search, X, Filter, LayoutGrid, List } from "lucide-react";
+import { Search, X, LayoutGrid, List } from "lucide-react";
 
 const TicketFilters = ({
   search,
@@ -40,7 +40,7 @@ const TicketFilters = ({
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Filter by subject, description or customer..."
+            placeholder="Filter by subject, description, customer name or email..."
             className="h-8.5 w-full rounded-md border border-slate-300 bg-white pl-8.5 pr-8 text-xs text-slate-800 placeholder:text-slate-400 outline-none transition-colors focus:border-indigo-600 focus:ring-1 focus:ring-indigo-100"
           />
           {search && (
