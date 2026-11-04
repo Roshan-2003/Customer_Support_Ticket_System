@@ -14,12 +14,7 @@ const TicketList = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const {
-    tickets,
-    loading,
-    error,
-    fetchTickets,
-  } = useTickets();
+  const { tickets, loading, error, fetchTickets } = useTickets();
 
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [status, setStatus] = useState(searchParams.get("status") || "");
@@ -55,7 +50,6 @@ const TicketList = () => {
   return (
     <div>
       {/* Breadcrumb & Section Header */}
-     
 
       {/* Filter & Search Bar */}
       <TicketFilters
@@ -96,14 +90,16 @@ const TicketList = () => {
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50/80 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                   <th className="py-2.5 px-3.5 w-16">No.</th>
-                      <th className="py-2.5 px-3.5 hidden sm:table-cell">Customer</th>
-                                                              <th className="py-2.5 px-3.5 hidden sm:table-cell">Email</th>
+                  <th className="py-2.5 px-3.5 hidden sm:table-cell">
+                    Customer
+                  </th>
+                  <th className="py-2.5 px-3.5 hidden sm:table-cell">Email</th>
 
                   <th className="py-2.5 px-3.5">Subject</th>
                   {/* <th className="py-2.5 px-3.5 hidden sm:table-cell">Customer</th> */}
                   <th className="py-2.5 px-3.5 w-24">Priority</th>
                   <th className="py-2.5 px-3.5 w-28">Status</th>
-            
+
                   <th className="py-2.5 px-3.5 w-10 text-right"></th>
                 </tr>
               </thead>
@@ -120,17 +116,15 @@ const TicketList = () => {
                         #{ticket.id}
                       </span>
                     </td>
- <td className="py-2.5 px-3.5 hidden sm:table-cell whitespace-nowrap">
+                    <td className="py-2.5 px-3.5 hidden sm:table-cell whitespace-nowrap">
                       <div className="flex items-center gap-1.5">
-                      
                         <span className="font-medium text-slate-700">
                           {ticket.customer_name}
                         </span>
                       </div>
                     </td>
 
-
-                           <td className="py-2.5 px-3.5 hidden sm:table-cell whitespace-nowrap text-slate-600">
+                    <td className="py-2.5 px-3.5 hidden sm:table-cell whitespace-nowrap text-slate-600">
                       {ticket.customer_email || "—"}
                     </td>
 
@@ -145,7 +139,6 @@ const TicketList = () => {
                     </td>
 
                     {/* Customer */}
-              
 
                     {/* Priority */}
                     <td className="py-2.5 px-3.5 whitespace-nowrap">
@@ -158,10 +151,8 @@ const TicketList = () => {
                     </td>
 
                     {/* Date */}
-              
 
                     {/* Action Arrow */}
-           
                   </tr>
                 ))}
               </tbody>

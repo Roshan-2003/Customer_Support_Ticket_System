@@ -31,16 +31,7 @@ const Navbar = ({ mobileOpen, onToggleMobileMenu }) => {
           </button>
 
           {/* Customer Support Brand - 100% Responsive for All Screen Sizes */}
-          <div className="flex items-center gap-2 min-w-0">
-            {/* Title / Subtitle Info - Adapts dynamically across breakpoints */}
-            <div className="min-w-0">
-              <span className="xs:hidden truncate text-xl font-bold text-slate-900 leading-tight block">
-                {/* Support System */}
-              </span>
-
-              {/* On larger screens (>= sm), show Jira-style Service Desk category and sub-queue */}
-            </div>
-          </div>
+     
         </div>
 
         <form

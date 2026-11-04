@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Ticket,
@@ -14,6 +14,12 @@ import { useTickets } from "../context/TicketContext";
 
 const Sidebar = ({ mobileOpen, onClose }) => {
   const { dashboard } = useTickets();
+  const location = useLocation();
+
+  const isQuickQueueActive = (statusValue) => {
+    const params = new URLSearchParams(location.search);
+    return params.get("status") === statusValue;
+  };
 
   const mainLinks = [
     {
@@ -40,6 +46,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
     {
       name: "Open Issues",
       path: "/tickets?status=open",
+      status: "open",
       icon: CircleDot,
       count: dashboard?.open || 0,
       color: "text-sky-600",
@@ -47,6 +54,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
     {
       name: "In Progress",
       path: "/tickets?status=in_progress",
+      status: "in_progress",
       icon: Clock,
       count: dashboard?.in_progress || 0,
       color: "text-amber-600",
@@ -54,6 +62,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
     {
       name: "Resolved",
       path: "/tickets?status=resolved",
+      status: "resolved",
       icon: CheckCircle2,
       count: dashboard?.resolved || 0,
       color: "text-emerald-600",
@@ -153,24 +162,31 @@ const Sidebar = ({ mobileOpen, onClose }) => {
           <div className="space-y-0.5">
             {quickFilterLinks.map((item) => {
               const Icon = item.icon;
+              const isActive = isQuickQueueActive(item.status);
+
               return (
                 <NavLink
                   key={item.name}
                   to={item.path}
                   onClick={onClose}
-                  className={({ isActive }) =>
-                    `group flex items-center justify-between rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors ${
-                      isActive
-                        ? "bg-slate-100 text-slate-900 font-semibold"
-                        : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-900"
-                    }`
-                  }
+                  className={`group flex items-center justify-between rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors ${
+                    isActive
+                      ? "bg-indigo-50 text-indigo-700 font-semibold"
+                      : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-900"
+                  }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Icon size={14} className={item.color} />
+                    <Icon
+                      size={14}
+                      className={isActive ? "text-indigo-600" : item.color}
+                    />
                     <span>{item.name}</span>
                   </div>
-                  <span className="text-[10px] font-medium text-slate-400 tabular-nums">
+                  <span
+                    className={`text-[10px] font-medium tabular-nums ${
+                      isActive ? "text-indigo-600" : "text-slate-400"
+                    }`}
+                  >
                     {item.count}
                   </span>
                 </NavLink>
