@@ -1,17 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import {
-  ArrowLeft,
-  Copy,
-  Check,
-} from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import toast from "react-hot-toast";
-
-import {
-  getTicketById,
-  updateTicketStatus,
-} from "../services/ticketApi";
-
+import { getTicketById, updateTicketStatus } from "../services/ticketApi";
 import StatusBadge from "../components/StatusBadge";
 import PriorityBadge from "../components/PriorityBadge";
 import CommentSection from "../components/CommentSection";
@@ -26,7 +17,6 @@ const TicketDetails = () => {
   const [ticket, setTicket] = useState(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
-  const [copiedId, setCopiedId] = useState(false);
 
   const fetchTicket = useCallback(async () => {
     try {
@@ -34,9 +24,7 @@ const TicketDetails = () => {
       const response = await getTicketById(id);
       setTicket(response.data.data);
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Ticket not found"
-      );
+      toast.error(error.response?.data?.message || "Ticket not found");
       setTicket(null);
     } finally {
       setLoading(false);
@@ -57,19 +45,10 @@ const TicketDetails = () => {
       await refreshData();
       toast.success("Status updated to " + newStatus.replace("_", " "));
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Failed to update status"
-      );
+      toast.error(error.response?.data?.message || "Failed to update status");
     } finally {
       setUpdating(false);
     }
-  };
-
-  const handleCopyId = () => {
-    navigator.clipboard.writeText(`#${ticket.id}`);
-    setCopiedId(true);
-    toast.success("Ticket ID copied to clipboard");
-    setTimeout(() => setCopiedId(false), 2000);
   };
 
   const getInitials = (name) => {
@@ -107,18 +86,11 @@ const TicketDetails = () => {
   return (
     <div className="space-y-4 pb-8">
       {/* Top Bar: Breadcrumb + Navigation Actions */}
-      <div className="flex flex-wrap items-center justify-between gap-3">
-      
-      
-      </div>
+      <div className="flex flex-wrap items-center justify-between gap-3"></div>
 
-      {/* Jira/Asana 2-Column Responsive Layout */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Left Column (2 cols): Issue Details & Comments Timeline */}
         <div className="space-y-4 lg:col-span-2">
-          {/* Main Issue Card */}
           <div className="surface-card p-4 sm:p-5">
-            {/* Header: Key & Status badge */}
             <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <span className="rounded border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-xs font-semibold text-slate-700">
@@ -131,12 +103,10 @@ const TicketDetails = () => {
               <StatusBadge status={ticket.status} />
             </div>
 
-            {/* Title */}
             <h1 className="text-lg font-bold tracking-tight text-slate-900 sm:text-xl">
               {ticket.subject}
             </h1>
 
-            {/* Issue Description */}
             <div className="mt-4 border-t border-slate-100 pt-3.5">
               <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                 Description
@@ -149,21 +119,18 @@ const TicketDetails = () => {
             </div>
           </div>
 
-          {/* Activity & Comment Timeline */}
           <CommentSection
             ticketId={ticket.id}
             resolved={ticket.status === "resolved"}
           />
         </div>
 
-        {/* Right Column (1 col): Jira Sidebar Attributes Panel */}
         <div className="space-y-4">
           <div className="surface-card p-4 space-y-4">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 pb-2 border-b border-slate-100">
               Issue Attributes
             </h3>
 
-            {/* Status Change Selector */}
             <div>
               <label className="mb-1 block text-xs font-semibold text-slate-700">
                 Workflow Status
@@ -182,7 +149,6 @@ const TicketDetails = () => {
               </div>
             </div>
 
-            {/* Priority */}
             <div>
               <label className="mb-1 block text-xs font-semibold text-slate-700">
                 Priority
@@ -192,7 +158,6 @@ const TicketDetails = () => {
               </div>
             </div>
 
-            {/* Customer / Reporter Details */}
             <div className="border-t border-slate-100 pt-3">
               <label className="mb-2 block text-xs font-semibold text-slate-700">
                 Reporter / Customer
@@ -215,7 +180,6 @@ const TicketDetails = () => {
               </div>
             </div>
 
-            {/* Metadata / Timestamps */}
             <div className="border-t border-slate-100 pt-3 space-y-2 text-xs">
               <div className="flex items-center justify-between text-slate-500">
                 <span>Created:</span>
@@ -238,7 +202,9 @@ const TicketDetails = () => {
 
               <div className="flex items-center justify-between text-slate-500">
                 <span>Service Level:</span>
-                <span className="font-medium text-emerald-600">Standard Tier</span>
+                <span className="font-medium text-emerald-600">
+                  Standard Tier
+                </span>
               </div>
             </div>
           </div>

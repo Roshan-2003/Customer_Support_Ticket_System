@@ -18,15 +18,9 @@ function App() {
 
             <Route path="/tickets" element={<TicketList />} />
 
-            <Route
-              path="/tickets/create"
-              element={<CreateTicket />}
-            />
+            <Route path="/tickets/create" element={<CreateTicket />} />
 
-            <Route
-              path="/tickets/:id"
-              element={<TicketDetails />}
-            />
+            <Route path="/tickets/:id" element={<TicketDetails />} />
           </Route>
         </Routes>
       </TicketProvider>
