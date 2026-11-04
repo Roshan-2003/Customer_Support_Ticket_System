@@ -131,7 +131,48 @@ const Dashboard = () => {
       </div>
 
       {/* Jira/Asana Issue Distribution Bar */}
-   
+ {total > 0 && (
+        <div className="surface-card mb-5 p-3.5 sm:p-4">
+          <div className="mb-2 flex items-center justify-between text-xs">
+            <span className="font-semibold text-slate-800">Queue Distribution</span>
+            <span className="text-[11px] text-slate-500">
+              {resolvedPct}% Completion Rate
+            </span>
+          </div>
+          {/* Multi-segment progress bar */}
+          <div className="flex h-2 w-full overflow-hidden rounded-md bg-slate-100">
+            <div
+              style={{ width: `${openPct}%` }}
+              className="bg-sky-500 transition-all duration-500"
+              title={`Open: ${openCount} (${openPct}%)`}
+            />
+            <div
+              style={{ width: `${inProgressPct}%` }}
+              className="bg-amber-500 transition-all duration-500"
+              title={`In Progress: ${inProgressCount} (${inProgressPct}%)`}
+            />
+            <div
+              style={{ width: `${resolvedPct}%` }}
+              className="bg-emerald-500 transition-all duration-500"
+              title={`Resolved: ${resolvedCount} (${resolvedPct}%)`}
+            />
+          </div>
+          <div className="mt-2.5 flex flex-wrap items-center gap-4 text-[11px] text-slate-500">
+            <div className="flex items-center gap-1.5">
+              <span className="h-2 w-2 rounded-full bg-sky-500" />
+              <span>Open: {openCount}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="h-2 w-2 rounded-full bg-amber-500" />
+              <span>In Progress: {inProgressCount}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+              <span>Resolved: {resolvedCount}</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="mb-3 flex items-center justify-between gap-3">
         <h2 className="text-sm font-semibold text-slate-900">
@@ -196,7 +237,7 @@ const Dashboard = () => {
 
                                         <th className="py-2.5 px-3.5 hidden sm:table-cell">Email</th>
 
-                  <th className="py-2.5 px-3.5">Description</th>
+                  <th className="py-2.5 px-3.5">Subject</th>
                   {/* <th className="py-2.5 px-3.5 hidden sm:table-cell">Customer</th> */}
                   <th className="py-2.5 px-3.5 w-24">Priority</th>
                   <th className="py-2.5 px-3.5 w-28">Status</th>
@@ -231,9 +272,11 @@ const Dashboard = () => {
                       </div>
                     </td>
 
-                    <td>{ticket.email}</td>
+                    <td className="py-2.5 px-3.5 hidden sm:table-cell whitespace-nowrap text-slate-600">
+                      {ticket.customer_email || "—"}
+                    </td>
 
-     <td className="py-2.5 px-3.5 min-w-[200px]">
+                    <td className="py-2.5 px-3.5 min-w-[200px]">
                       <span className="font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
                         {ticket.subject}
                       </span>

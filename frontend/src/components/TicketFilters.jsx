@@ -130,9 +130,7 @@ const TicketFilters = ({
 
       {/* Jira/Asana style quick filter pills */}
       <div className="mt-3 flex flex-wrap items-center gap-1.5 border-t border-slate-100 pt-2.5">
-        <span className="text-[11px] font-medium text-slate-400 mr-1 flex items-center gap-1">
-          <Filter size={11} /> Quick:
-        </span>
+      
         {quickFilters.map((q) => {
           const isActive =
             status === q.statusVal &&

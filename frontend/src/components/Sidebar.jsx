@@ -7,6 +7,7 @@ import {
   CircleDot,
   CheckCircle2,
   Clock,
+  Sparkles,
   FolderKanban,
 } from "lucide-react";
 import { useTickets } from "../context/TicketContext";
@@ -32,6 +33,30 @@ const Sidebar = ({ mobileOpen, onClose }) => {
       path: "/tickets/create",
       icon: PlusCircle,
       badge: null,
+    },
+  ];
+
+  const quickFilterLinks = [
+    {
+      name: "Open Issues",
+      path: "/tickets?status=open",
+      icon: CircleDot,
+      count: dashboard?.open || 0,
+      color: "text-sky-600",
+    },
+    {
+      name: "In Progress",
+      path: "/tickets?status=in_progress",
+      icon: Clock,
+      count: dashboard?.in_progress || 0,
+      color: "text-amber-600",
+    },
+    {
+      name: "Resolved",
+      path: "/tickets?status=resolved",
+      icon: CheckCircle2,
+      count: dashboard?.resolved || 0,
+      color: "text-emerald-600",
     },
   ];
 
@@ -119,7 +144,44 @@ const Sidebar = ({ mobileOpen, onClose }) => {
             })}
           </nav>
         </div>
+
+        {/* Section 2: Jira-style Quick Filter Queues */}
+        <div>
+          <p className="mb-2 px-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+            Quick Queues
+          </p>
+          <div className="space-y-0.5">
+            {quickFilterLinks.map((item) => {
+              const Icon = item.icon;
+              return (
+                <NavLink
+                  key={item.name}
+                  to={item.path}
+                  onClick={onClose}
+                  className={({ isActive }) =>
+                    `group flex items-center justify-between rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors ${
+                      isActive
+                        ? "bg-slate-100 text-slate-900 font-semibold"
+                        : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-900"
+                    }`
+                  }
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Icon size={14} className={item.color} />
+                    <span>{item.name}</span>
+                  </div>
+                  <span className="text-[10px] font-medium text-slate-400 tabular-nums">
+                    {item.count}
+                  </span>
+                </NavLink>
+              );
+            })}
+          </div>
+        </div>
       </div>
+
+      {/* Footer Info / SLA Status */}
+   
     </div>
   );
 

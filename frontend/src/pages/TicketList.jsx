@@ -95,12 +95,15 @@ const TicketList = () => {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50/80 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                  <th className="py-2.5 px-3.5 w-16">Key</th>
-                  <th className="py-2.5 px-3.5">Subject &amp; Summary</th>
-                  <th className="py-2.5 px-3.5 hidden sm:table-cell">Customer</th>
+                  <th className="py-2.5 px-3.5 w-16">No.</th>
+                      <th className="py-2.5 px-3.5 hidden sm:table-cell">Customer</th>
+                                                              <th className="py-2.5 px-3.5 hidden sm:table-cell">Email</th>
+
+                  <th className="py-2.5 px-3.5">Subject</th>
+                  {/* <th className="py-2.5 px-3.5 hidden sm:table-cell">Customer</th> */}
                   <th className="py-2.5 px-3.5 w-24">Priority</th>
                   <th className="py-2.5 px-3.5 w-28">Status</th>
-                  <th className="py-2.5 px-3.5 hidden md:table-cell w-28">Date</th>
+            
                   <th className="py-2.5 px-3.5 w-10 text-right"></th>
                 </tr>
               </thead>
@@ -117,28 +120,32 @@ const TicketList = () => {
                         #{ticket.id}
                       </span>
                     </td>
+ <td className="py-2.5 px-3.5 hidden sm:table-cell whitespace-nowrap">
+                      <div className="flex items-center gap-1.5">
+                      
+                        <span className="font-medium text-slate-700">
+                          {ticket.customer_name}
+                        </span>
+                      </div>
+                    </td>
+
+
+                           <td className="py-2.5 px-3.5 hidden sm:table-cell whitespace-nowrap text-slate-600">
+                      {ticket.customer_email || "—"}
+                    </td>
 
                     {/* Subject */}
                     <td className="py-2.5 px-3.5 min-w-[200px]">
                       <div className="font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
                         {ticket.subject}
                       </div>
-                      <div className="text-[11px] text-slate-400 line-clamp-1">
+                      {/* <div className="text-[11px] text-slate-400 line-clamp-1">
                         {ticket.description}
-                      </div>
+                      </div> */}
                     </td>
 
                     {/* Customer */}
-                    <td className="py-2.5 px-3.5 hidden sm:table-cell whitespace-nowrap">
-                      <div className="flex items-center gap-1.5">
-                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-slate-100 text-[9px] font-bold text-slate-700">
-                          {getInitials(ticket.customer_name)}
-                        </div>
-                        <span className="font-medium text-slate-700">
-                          {ticket.customer_name}
-                        </span>
-                      </div>
-                    </td>
+              
 
                     {/* Priority */}
                     <td className="py-2.5 px-3.5 whitespace-nowrap">
@@ -151,22 +158,10 @@ const TicketList = () => {
                     </td>
 
                     {/* Date */}
-                    <td className="py-2.5 px-3.5 hidden md:table-cell text-slate-400 whitespace-nowrap">
-                      {ticket.created_at
-                        ? new Date(ticket.created_at).toLocaleDateString(undefined, {
-                            month: "short",
-                            day: "numeric",
-                          })
-                        : "—"}
-                    </td>
+              
 
                     {/* Action Arrow */}
-                    <td className="py-2.5 px-3.5 text-right whitespace-nowrap">
-                      <ChevronRight
-                        size={15}
-                        className="inline-block text-slate-300 group-hover:text-indigo-600 transition-colors"
-                      />
-                    </td>
+           
                   </tr>
                 ))}
               </tbody>
