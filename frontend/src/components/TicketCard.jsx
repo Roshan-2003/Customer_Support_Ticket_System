@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
 import StatusBadge from "./StatusBadge";
 import PriorityBadge from "./PriorityBadge";
 
 const TicketCard = ({ ticket }) => {
   const getInitials = (name) => {
-    if (!name) return "U";
+    if (!name) return "CU";
     return name
       .split(" ")
       .map((part) => part[0])
@@ -14,50 +13,56 @@ const TicketCard = ({ ticket }) => {
       .slice(0, 2);
   };
 
+  const formattedDate = ticket.created_at
+    ? new Date(ticket.created_at).toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "";
+
   return (
     <Link
       to={`/tickets/${ticket.id}`}
-      className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-4 sm:p-5 md:p-6 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-md"
+      className="group relative flex flex-col justify-between rounded-lg border border-slate-200 bg-white p-3.5 sm:p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-150 hover:border-slate-300 hover:shadow-xs"
     >
       <div>
-        <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+        {/* Top meta row: Key, date, status */}
+        <div className="mb-2.5 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-0.5 font-mono text-[11px] font-semibold text-slate-600">
+            <span className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-slate-600">
               #{ticket.id}
             </span>
             <span className="text-[11px] text-slate-400">
-              {ticket.created_at ? new Date(ticket.created_at).toLocaleDateString() : ""}
+              {formattedDate}
             </span>
           </div>
 
           <StatusBadge status={ticket.status} />
         </div>
 
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="mb-2 text-sm sm:text-base md:text-lg font-bold text-slate-800  transition-colors">
-            {ticket.subject}
-          </h3>
-          {/* <ArrowUpRight
-            size={16}
-            className="text-slate-400 opacity-0 group-hover:opacity-100 group-hover:text-indigo-600 transition-all shrink-0 mt-1"
-          /> */}
-        </div>
+        {/* Issue Subject */}
+        <h3 className="mb-1.5 text-sm font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
+          {ticket.subject}
+        </h3>
 
-        <p className="mb-5 line-clamp-2 text-xs sm:text-sm leading-relaxed text-slate-600">
+        {/* Issue Description preview */}
+        <p className="mb-4 text-xs leading-relaxed text-slate-600 line-clamp-2">
           {ticket.description}
         </p>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-3.5 mt-auto">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-50 border border-indigo-100 text-xs font-bold text-indigo-700">
+      {/* Footer: Customer info + Priority */}
+      <div className="mt-auto flex items-center justify-between gap-2 border-t border-slate-100 pt-2.5">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-slate-100 text-[10px] font-bold text-slate-700">
             {getInitials(ticket.customer_name)}
           </div>
-          <div>
-            <p className="text-xs sm:text-sm font-semibold text-slate-800 leading-tight">
+          <div className="min-w-0 truncate">
+            <p className="truncate text-xs font-medium text-slate-800">
               {ticket.customer_name}
             </p>
-            <p className="text-[11px] text-slate-400 leading-none">
+            <p className="truncate text-[10px] text-slate-400">
               {ticket.customer_email}
             </p>
           </div>

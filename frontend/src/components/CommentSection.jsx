@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import toast from "react-hot-toast";
-import { MessageSquare, Send } from "lucide-react";
+import { MessageSquare, Send, CheckCircle2 } from "lucide-react";
 
 import { addComment, getComments } from "../services/ticketApi";
 import Loader from "./Loader";
@@ -11,7 +11,7 @@ const CommentSection = ({ ticketId, resolved }) => {
   const [submitting, setSubmitting] = useState(false);
   const [comment, setComment] = useState("");
 
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     try {
       setLoading(true);
       const response = await getComments(ticketId);
@@ -23,13 +23,13 @@ const CommentSection = ({ ticketId, resolved }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [ticketId]);
 
   useEffect(() => {
     if (ticketId) {
       fetchComments();
     }
-  }, [ticketId]);
+  }, [ticketId, fetchComments]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,34 +56,51 @@ const CommentSection = ({ ticketId, resolved }) => {
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 md:p-8 shadow-xs">
-      <div className="flex items-center gap-2 mb-5">
-        <MessageSquare size={20} className="text-indigo-600" />
-        <h3 className="text-base sm:text-lg md:text-xl font-bold text-slate-800 tracking-tight">
-          Conversation ({comments.length})
-        </h3>
+    <div className="surface-card p-4 sm:p-5">
+      {/* Activity Header */}
+      <div className="mb-4 flex items-center justify-between border-b border-slate-100 pb-2.5">
+        <div className="flex items-center gap-2">
+          <MessageSquare size={15} className="text-indigo-600" />
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+            Activity &amp; Comments
+          </h3>
+          <span className="rounded border border-slate-200 bg-slate-100 px-1.5 py-0.2 text-[10px] font-semibold text-slate-600">
+            {comments.length}
+          </span>
+        </div>
       </div>
 
+      {/* Comments List */}
       {loading ? (
         <Loader />
       ) : comments.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-6 text-center text-xs sm:text-sm text-slate-500">
-          No comments yet. Start the conversation below.
+        <div className="mb-4 rounded-md border border-dashed border-slate-200 bg-slate-50/70 p-5 text-center text-xs text-slate-500">
+          No comments yet. Add an internal note or reply to customer below.
         </div>
       ) : (
-        <div className="space-y-3.5 mb-6">
+        <div className="mb-5 space-y-3">
           {comments.map((item) => (
             <div
               key={item.id}
-              className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-4 transition-colors"
+              className="rounded-md border border-slate-200 bg-white p-3 shadow-2xs"
             >
-              <div className="flex items-center justify-between gap-2 mb-1.5">
-                <span className="text-xs font-semibold text-slate-800">Support Note</span>
-                <span className="text-[10px] sm:text-xs text-slate-400">
-                  {new Date(item.created_at).toLocaleString()}
+              <div className="mb-1.5 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <div className="flex h-5 w-5 items-center justify-center rounded-md bg-indigo-50 text-[9px] font-bold text-indigo-700 border border-indigo-200">
+                    SA
+                  </div>
+                  <span className="text-xs font-semibold text-slate-800">
+                    Support Agent
+                  </span>
+                </div>
+                <span className="text-[10px] text-slate-400">
+                  {new Date(item.created_at).toLocaleString(undefined, {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  })}
                 </span>
               </div>
-              <p className="text-xs sm:text-sm md:text-base leading-relaxed text-slate-700 whitespace-pre-wrap">
+              <p className="whitespace-pre-wrap text-xs sm:text-sm leading-relaxed text-slate-700 pl-7">
                 {item.comment}
               </p>
             </div>
@@ -91,28 +108,35 @@ const CommentSection = ({ ticketId, resolved }) => {
         </div>
       )}
 
+      {/* Add Comment or Resolved Notice */}
       {resolved ? (
-        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs sm:text-sm text-amber-800">
-          This ticket has been marked as <strong>Resolved</strong>. Comments are disabled.
+        <div className="flex items-center gap-2 rounded-md border border-amber-200 bg-amber-50/80 px-3 py-2.5 text-xs text-amber-800">
+          <CheckCircle2 size={16} className="text-amber-600 shrink-0" />
+          <span>
+            This issue is marked as <strong>Resolved</strong>. Comments are disabled unless reopened.
+          </span>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-2.5">
           <textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             rows="3"
-            placeholder="Type your response or update here..."
-            className="w-full rounded-xl border border-slate-200  p-3.5 text-xs sm:text-sm md:text-base text-slate-800 placeholder:text-slate-400 outline-none  transition-all"
+            placeholder="Add a comment or internal note (Markdown supported)..."
+            className="field-shell min-h-[85px] resize-y text-xs sm:text-sm"
           />
 
-          <div className="flex justify-end">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] text-slate-400">
+              Visible to customer and team members
+            </span>
             <button
               type="submit"
               disabled={submitting || !comment.trim()}
-              className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-xs sm:text-sm md:text-base font-semibold text-white shadow-sm hover:bg-indigo-700 hover:shadow disabled:opacity-50 transition-all active:scale-[0.98]"
+              className="inline-flex h-8 items-center gap-1.5 rounded-md bg-indigo-600 px-3 text-xs font-medium text-white shadow-xs transition-colors hover:bg-indigo-700 disabled:opacity-50"
             >
-              <Send size={15} />
-              {submitting ? "Sending..." : "Post Comment"}
+              <Send size={13} />
+              <span>{submitting ? "Posting..." : "Post Comment"}</span>
             </button>
           </div>
         </form>

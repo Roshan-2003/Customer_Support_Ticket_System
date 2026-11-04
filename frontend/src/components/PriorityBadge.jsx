@@ -1,17 +1,35 @@
+import { ArrowUp, ArrowDown, Minus } from "lucide-react";
+
 const PriorityBadge = ({ priority }) => {
-  const styles = {
-    low: "bg-teal-50 text-teal-700 border-teal-200",
-    medium: "bg-amber-50 text-amber-700 border-amber-200",
-    high: "bg-rose-50 text-rose-700 border-rose-200",
+  const normalized = (priority || "medium").toLowerCase();
+
+  const config = {
+    high: {
+      label: "High",
+      style: "bg-rose-50 text-rose-700 border-rose-200",
+      icon: ArrowUp,
+    },
+    medium: {
+      label: "Medium",
+      style: "bg-amber-50 text-amber-700 border-amber-200",
+      icon: Minus,
+    },
+    low: {
+      label: "Low",
+      style: "bg-slate-50 text-slate-600 border-slate-200",
+      icon: ArrowDown,
+    },
   };
+
+  const item = config[normalized] || config.medium;
+  const Icon = item.icon;
 
   return (
     <span
-      className={`inline-flex items-center rounded-md border px-2 sm:px-2.5 py-0.5 text-[10px] sm:text-xs font-semibold uppercase tracking-wider transition-colors ${
-        styles[priority] || "bg-slate-100 text-slate-700 border-slate-200"
-      }`}
+      className={`inline-flex items-center gap-1 rounded-md border px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider transition-colors ${item.style}`}
     >
-      {priority || "normal"}
+      <Icon size={12} strokeWidth={2.5} />
+      <span>{item.label}</span>
     </span>
   );
 };

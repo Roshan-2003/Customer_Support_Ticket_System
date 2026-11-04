@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Plus } from "lucide-react";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { Plus, ChevronRight } from "lucide-react";
 
 import { useTickets } from "../context/TicketContext";
 import TicketFilters from "../components/TicketFilters";
 import TicketCard from "../components/TicketCard";
+import StatusBadge from "../components/StatusBadge";
+import PriorityBadge from "../components/PriorityBadge";
 import Loader from "../components/Loader";
 import EmptyState from "../components/EmptyState";
 
 const TicketList = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
   const {
     tickets,
     loading,
@@ -16,10 +21,19 @@ const TicketList = () => {
     fetchTickets,
   } = useTickets();
 
-  const [search, setSearch] = useState("");
-  const [status, setStatus] = useState("");
-  const [priority, setPriority] = useState("");
+  const [search, setSearch] = useState(searchParams.get("search") || "");
+  const [status, setStatus] = useState(searchParams.get("status") || "");
+  const [priority, setPriority] = useState(searchParams.get("priority") || "");
+  const [viewMode, setViewMode] = useState("table"); // 'table' | 'card'
 
+  // Sync state with URL search params if user clicks quick filter in sidebar
+  useEffect(() => {
+    setSearch(searchParams.get("search") || "");
+    setStatus(searchParams.get("status") || "");
+    setPriority(searchParams.get("priority") || "");
+  }, [searchParams]);
+
+  // Fetch tickets when filters change
   useEffect(() => {
     fetchTickets({
       search,
@@ -28,22 +42,22 @@ const TicketList = () => {
     });
   }, [search, status, priority, fetchTickets]);
 
+  const getInitials = (name) => {
+    if (!name) return "CU";
+    return name
+      .split(" ")
+      .map((part) => part[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   return (
     <div>
-      <div className="mb-4 sm:mb-8 flex flex-wrap items-center justify-between gap-4">
-        <div>
-          {/* <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
-            Support Tickets
-          </h1>
+      {/* Breadcrumb & Section Header */}
+     
 
-          <p className="mt-1 text-xs sm:text-sm md:text-base text-slate-500">
-            Browse, search, and manage all incoming support requests.
-          </p> */}
-        </div>
-
-      
-      </div>
-
+      {/* Filter & Search Bar */}
       <TicketFilters
         search={search}
         setSearch={setSearch}
@@ -51,24 +65,117 @@ const TicketList = () => {
         setStatus={setStatus}
         priority={priority}
         setPriority={setPriority}
+        viewMode={viewMode}
+        setViewMode={setViewMode}
       />
 
-      <div className="mb-4 flex items-center justify-between">
-        <p className="text-xs sm:text-sm font-semibold text-slate-500">
-          Showing <span className="text-slate-900 font-bold">{tickets.length}</span> {tickets.length === 1 ? "ticket" : "tickets"}
+      {/* Results Header Count */}
+      <div className="mb-3 flex items-center justify-between text-xs text-slate-500">
+        <p>
+          Showing{" "}
+          <span className="font-semibold text-slate-900">{tickets.length}</span>{" "}
+          {tickets.length === 1 ? "issue" : "issues"}
+          {(search || status || priority) && " (filtered)"}
         </p>
       </div>
 
+      {/* Main Content Area */}
       {loading ? (
         <Loader />
       ) : error ? (
-        <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-xs sm:text-sm font-medium text-rose-700">
+        <div className="rounded-lg border border-rose-200 bg-rose-50 p-4 text-xs font-medium text-rose-700">
           {error}
         </div>
       ) : tickets.length === 0 ? (
         <EmptyState message="No matching tickets found" />
+      ) : viewMode === "table" ? (
+        /* Jira / Asana Clean Table View */
+        <div className="surface-card overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-slate-200 bg-slate-50/80 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                  <th className="py-2.5 px-3.5 w-16">Key</th>
+                  <th className="py-2.5 px-3.5">Subject &amp; Summary</th>
+                  <th className="py-2.5 px-3.5 hidden sm:table-cell">Customer</th>
+                  <th className="py-2.5 px-3.5 w-24">Priority</th>
+                  <th className="py-2.5 px-3.5 w-28">Status</th>
+                  <th className="py-2.5 px-3.5 hidden md:table-cell w-28">Date</th>
+                  <th className="py-2.5 px-3.5 w-10 text-right"></th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 text-xs">
+                {tickets.map((ticket) => (
+                  <tr
+                    key={ticket.id}
+                    onClick={() => navigate(`/tickets/${ticket.id}`)}
+                    className="group cursor-pointer hover:bg-slate-50/80 transition-colors"
+                  >
+                    {/* Key */}
+                    <td className="py-2.5 px-3.5 whitespace-nowrap">
+                      <span className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-slate-600 group-hover:border-indigo-200 group-hover:bg-indigo-50/50 group-hover:text-indigo-600">
+                        #{ticket.id}
+                      </span>
+                    </td>
+
+                    {/* Subject */}
+                    <td className="py-2.5 px-3.5 min-w-[200px]">
+                      <div className="font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
+                        {ticket.subject}
+                      </div>
+                      <div className="text-[11px] text-slate-400 line-clamp-1">
+                        {ticket.description}
+                      </div>
+                    </td>
+
+                    {/* Customer */}
+                    <td className="py-2.5 px-3.5 hidden sm:table-cell whitespace-nowrap">
+                      <div className="flex items-center gap-1.5">
+                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-slate-100 text-[9px] font-bold text-slate-700">
+                          {getInitials(ticket.customer_name)}
+                        </div>
+                        <span className="font-medium text-slate-700">
+                          {ticket.customer_name}
+                        </span>
+                      </div>
+                    </td>
+
+                    {/* Priority */}
+                    <td className="py-2.5 px-3.5 whitespace-nowrap">
+                      <PriorityBadge priority={ticket.priority} />
+                    </td>
+
+                    {/* Status */}
+                    <td className="py-2.5 px-3.5 whitespace-nowrap">
+                      <StatusBadge status={ticket.status} />
+                    </td>
+
+                    {/* Date */}
+                    <td className="py-2.5 px-3.5 hidden md:table-cell text-slate-400 whitespace-nowrap">
+                      {ticket.created_at
+                        ? new Date(ticket.created_at).toLocaleDateString(undefined, {
+                            month: "short",
+                            day: "numeric",
+                          })
+                        : "—"}
+                    </td>
+
+                    {/* Action Arrow */}
+                    <td className="py-2.5 px-3.5 text-right whitespace-nowrap">
+                      <ChevronRight
+                        size={15}
+                        className="inline-block text-slate-300 group-hover:text-indigo-600 transition-colors"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       ) : (
-        <div className="grid gap-4 sm:gap-5 grid-cols-1 lg:grid-cols-2">
+        /* Card Grid View */
+        <div className="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {tickets.map((ticket) => (
             <TicketCard key={ticket.id} ticket={ticket} />
           ))}

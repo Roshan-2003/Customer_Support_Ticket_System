@@ -7,20 +7,20 @@ const MainLayout = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 antialiased">
+    <div className="app-shell antialiased">
       <Sidebar
         mobileOpen={mobileOpen}
         onClose={() => setMobileOpen(false)}
       />
 
-      <div className="md:ml-64 flex flex-col min-h-screen transition-all duration-300">
+      <div className="flex min-h-screen flex-col transition-all duration-200 md:ml-64">
         <Navbar
           mobileOpen={mobileOpen}
           onToggleMobileMenu={() => setMobileOpen((prev) => !prev)}
         />
 
-        <main className="flex-1 ">
-          <div className="mx-auto max-w-6xl">
+        <main className="flex-1 px-3 py-4 sm:px-5 sm:py-6 lg:px-8">
+          <div className="">
             <Outlet />
           </div>
         </main>

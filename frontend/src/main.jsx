@@ -16,13 +16,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         duration: 3500,
         style: {
           background: "#ffffff",
-          color: "#1e293b",
+          color: "#0f172a",
           border: "1px solid #e2e8f0",
-          borderRadius: "12px",
-          boxShadow: "0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.03)",
-          fontSize: "0.875rem",
+          borderRadius: "8px",
+          boxShadow: "0 4px 12px -2px rgba(15, 23, 42, 0.12)",
+          fontSize: "13px",
           fontWeight: 500,
-          padding: "12px 16px",
+          padding: "10px 14px",
         },
         success: {
           iconTheme: {
