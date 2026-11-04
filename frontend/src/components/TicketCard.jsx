@@ -34,13 +34,13 @@ const TicketCard = ({ ticket }) => {
         </div>
 
         <div className="flex items-start justify-between gap-2">
-          <h3 className="mb-2 text-sm sm:text-base md:text-lg font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">
+          <h3 className="mb-2 text-sm sm:text-base md:text-lg font-bold text-slate-800  transition-colors">
             {ticket.subject}
           </h3>
-          <ArrowUpRight
+          {/* <ArrowUpRight
             size={16}
             className="text-slate-400 opacity-0 group-hover:opacity-100 group-hover:text-indigo-600 transition-all shrink-0 mt-1"
-          />
+          /> */}
         </div>
 
         <p className="mb-5 line-clamp-2 text-xs sm:text-sm leading-relaxed text-slate-600">
