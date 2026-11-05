@@ -17,9 +17,7 @@ const CommentSection = ({ ticketId, resolved }) => {
       const response = await getComments(ticketId);
       setComments(response.data.data || []);
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Failed to load comments"
-      );
+      toast.error(error.response?.data?.message || "Failed to load comments");
     } finally {
       setLoading(false);
     }
@@ -47,9 +45,7 @@ const CommentSection = ({ ticketId, resolved }) => {
       setComment("");
       toast.success("Comment added successfully");
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Failed to add comment"
-      );
+      toast.error(error.response?.data?.message || "Failed to add comment");
     } finally {
       setSubmitting(false);
     }
@@ -57,7 +53,6 @@ const CommentSection = ({ ticketId, resolved }) => {
 
   return (
     <div className="surface-card p-4 sm:p-5">
-      {/* Activity Header */}
       <div className="mb-4 flex items-center justify-between border-b border-slate-100 pb-2.5">
         <div className="flex items-center gap-2">
           <MessageSquare size={15} className="text-indigo-600" />
@@ -70,7 +65,6 @@ const CommentSection = ({ ticketId, resolved }) => {
         </div>
       </div>
 
-      {/* Comments List */}
       {loading ? (
         <Loader />
       ) : comments.length === 0 ? (
@@ -108,12 +102,12 @@ const CommentSection = ({ ticketId, resolved }) => {
         </div>
       )}
 
-      {/* Add Comment or Resolved Notice */}
       {resolved ? (
         <div className="flex items-center gap-2 rounded-md border border-amber-200 bg-amber-50/80 px-3 py-2.5 text-xs text-amber-800">
           <CheckCircle2 size={16} className="text-amber-600 shrink-0" />
           <span>
-            This issue is marked as <strong>Resolved</strong>. Comments are disabled unless reopened.
+            This issue is marked as <strong>Resolved</strong>. Comments are
+            disabled unless reopened.
           </span>
         </div>
       ) : (

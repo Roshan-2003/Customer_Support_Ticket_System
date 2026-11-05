@@ -51,9 +51,7 @@ const CreateTicket = () => {
           toast.error(message);
         });
       } else {
-        toast.error(
-          error.response?.data?.message || "Failed to create ticket"
-        );
+        toast.error(error.response?.data?.message || "Failed to create ticket");
       }
     } finally {
       setLoading(false);
@@ -89,7 +87,6 @@ const CreateTicket = () => {
 
   return (
     <div className="max-w-6xl">
-  
       <form
         onSubmit={handleSubmit}
         className="surface-card space-y-4 p-4 sm:p-6"
@@ -142,7 +139,6 @@ const CreateTicket = () => {
           />
         </div>
 
-     
         <div>
           <label className="mb-1.5 block text-xs font-semibold text-slate-700">
             Priority Level
@@ -183,7 +179,6 @@ const CreateTicket = () => {
           </div>
         </div>
 
-    
         <div>
           <label className="mb-1 block text-xs font-semibold text-slate-700">
             Issue Description <span className="text-rose-500">*</span>
@@ -198,11 +193,11 @@ const CreateTicket = () => {
             className="field-shell min-h-[120px] resize-y text-xs sm:text-sm"
           />
           <p className="mt-1 text-[11px] text-slate-400">
-            Please include relevant details to assist the support team in rapid diagnosis.
+            Please include relevant details to assist the support team in rapid
+            diagnosis.
           </p>
         </div>
 
-     
         <div className="flex items-center justify-end gap-2 border-t border-slate-100 pt-3.5">
           <button
             type="button"

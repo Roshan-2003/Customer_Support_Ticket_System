@@ -48,7 +48,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
       path: "/tickets?status=open",
       status: "open",
       icon: CircleDot,
-      count: dashboard?.open ,
+      count: dashboard?.open,
       color: "text-sky-600",
     },
     {
@@ -56,7 +56,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
       path: "/tickets?status=in_progress",
       status: "in_progress",
       icon: Clock,
-      count: dashboard?.in_progress ,
+      count: dashboard?.in_progress,
       color: "text-amber-600",
     },
     {
@@ -64,7 +64,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
       path: "/tickets?status=resolved",
       status: "resolved",
       icon: CheckCircle2,
-      count: dashboard?.resolved ,
+      count: dashboard?.resolved,
       color: "text-emerald-600",
     },
   ];
@@ -98,7 +98,6 @@ const Sidebar = ({ mobileOpen, onClose }) => {
           </button>
         </div>
 
-        {/* Section 1: Main Navigation */}
         <div>
           <p className="mb-2 px-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Navigation
@@ -154,7 +153,6 @@ const Sidebar = ({ mobileOpen, onClose }) => {
           </nav>
         </div>
 
-        {/* Section 2: Jira-style Quick Filter Queues */}
         <div>
           <p className="mb-2 px-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Quick Queues
@@ -195,20 +193,15 @@ const Sidebar = ({ mobileOpen, onClose }) => {
           </div>
         </div>
       </div>
-
-      {/* Footer Info / SLA Status */}
-   
     </div>
   );
 
   return (
     <>
-      {/* Desktop Sidebar: Clean w-64 standard enterprise width */}
       <aside className="fixed left-0 top-0 z-40 hidden h-screen w-64 md:block">
         {sidebarContent}
       </aside>
 
-      {/* Mobile Drawer */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
           <div

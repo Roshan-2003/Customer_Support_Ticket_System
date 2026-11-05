@@ -16,9 +16,7 @@ const EmptyState = ({
         {message}
       </h3>
 
-      <p className="mt-1 max-w-sm text-xs text-slate-500">
-        {description}
-      </p>
+      <p className="mt-1 max-w-sm text-xs text-slate-500">{description}</p>
 
       {showAction && (
         <Link

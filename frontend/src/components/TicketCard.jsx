@@ -27,32 +27,26 @@ const TicketCard = ({ ticket }) => {
       className="group relative flex flex-col justify-between rounded-lg border border-slate-200 bg-white p-3.5 sm:p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-150 hover:border-slate-300 hover:shadow-xs"
     >
       <div>
-        {/* Top meta row: Key, date, status */}
         <div className="mb-2.5 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <span className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-slate-600">
               #{ticket.id}
             </span>
-            <span className="text-[11px] text-slate-400">
-              {formattedDate}
-            </span>
+            <span className="text-[11px] text-slate-400">{formattedDate}</span>
           </div>
 
           <StatusBadge status={ticket.status} />
         </div>
 
-        {/* Issue Subject */}
         <h3 className="mb-1.5 text-sm font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
           {ticket.subject}
         </h3>
 
-        {/* Issue Description preview */}
         <p className="mb-4 text-xs leading-relaxed text-slate-600 line-clamp-2">
           {ticket.description}
         </p>
       </div>
 
-      {/* Footer: Customer info + Priority */}
       <div className="mt-auto flex items-center justify-between gap-2 border-t border-slate-100 pt-2.5">
         <div className="flex items-center gap-2 min-w-0">
           <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-slate-100 text-[10px] font-bold text-slate-700">

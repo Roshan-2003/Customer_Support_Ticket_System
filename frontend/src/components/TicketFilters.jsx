@@ -28,7 +28,6 @@ const TicketFilters = ({
 
   return (
     <div className="surface-card mb-4 p-3 sm:p-4">
-      {/* Top row: Search input + View switcher + Reset */}
       <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
         {/* Search Input */}
         <div className="relative flex-1 max-w-lg">
@@ -57,7 +56,6 @@ const TicketFilters = ({
 
         {/* Controls: Dropdowns + View toggle */}
         <div className="flex flex-wrap items-center gap-2">
-          {/* Status Dropdown */}
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
@@ -69,7 +67,6 @@ const TicketFilters = ({
             <option value="resolved">Resolved</option>
           </select>
 
-          {/* Priority Dropdown */}
           <select
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
@@ -81,7 +78,6 @@ const TicketFilters = ({
             <option value="high">High Priority</option>
           </select>
 
-          {/* View Mode Toggle (Table / Card) */}
           {setViewMode && (
             <div className="flex items-center rounded-md border border-slate-200 bg-slate-100/80 p-0.5">
               <button
@@ -114,7 +110,6 @@ const TicketFilters = ({
             </div>
           )}
 
-          {/* Reset button */}
           {hasActiveFilters && (
             <button
               type="button"
@@ -130,11 +125,8 @@ const TicketFilters = ({
 
       {/* Jira/Asana style quick filter pills */}
       <div className="mt-3 flex flex-wrap items-center gap-1.5 border-t border-slate-100 pt-2.5">
-      
         {quickFilters.map((q) => {
-          const isActive =
-            status === q.statusVal &&
-            priority === q.priorityVal;
+          const isActive = status === q.statusVal && priority === q.priorityVal;
 
           return (
             <button
