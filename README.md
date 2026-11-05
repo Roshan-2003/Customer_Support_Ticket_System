@@ -94,7 +94,7 @@ The application uses PostgreSQL to store ticket information.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Roshan-2003/company-assign--task.git
+git clone https://github.com/Roshan-2003/Customer_Support_Ticket_System.git
 cd company-assign--task
 ```
 
