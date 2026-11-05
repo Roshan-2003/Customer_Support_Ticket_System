@@ -44,7 +44,7 @@ const createTicket = async (req, res) => {
   }
 };
 
-// GET: All Tickets + Search + Filter
+
 const getAllTickets = async (req, res) => {
   try {
     const { search = "", status = "", priority = "" } = req.query;
@@ -105,7 +105,7 @@ const getAllTickets = async (req, res) => {
   }
 };
 
-// GET: Single Ticket by ID
+
 const getTicketById = async (req, res) => {
   try {
     const id = Number(req.params.id);
@@ -138,7 +138,7 @@ const getTicketById = async (req, res) => {
   }
 };
 
-// PUT: Update Ticket Status
+
 const updateTicketStatus = async (req, res) => {
   try {
     const id = Number(req.params.id);
@@ -187,7 +187,7 @@ const updateTicketStatus = async (req, res) => {
   }
 };
 
-// GET: Dashboard Counts
+
 const getDashboardCounts = async (req, res) => {
   try {
     const [counts] = await db
