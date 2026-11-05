@@ -1,6 +1,6 @@
 
 
-const Loader = ({ message = "Loading queue data..." }) => {
+const Loader = ({ message = "Loading ..." }) => {
   return (
    <div className="flex min-h-48 flex-col items-center justify-center gap-3 py-10">
   <div className="flex items-center gap-1.5">

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
-import { Plus, ChevronRight } from "lucide-react";
 
 import { useTickets } from "../context/TicketContext";
 import TicketFilters from "../components/TicketFilters";
@@ -21,14 +20,12 @@ const TicketList = () => {
   const [priority, setPriority] = useState(searchParams.get("priority") || "");
   const [viewMode, setViewMode] = useState("table"); // 'table' | 'card'
 
-  // Sync state with URL search params if user clicks quick filter in sidebar
   useEffect(() => {
     setSearch(searchParams.get("search") || "");
     setStatus(searchParams.get("status") || "");
     setPriority(searchParams.get("priority") || "");
   }, [searchParams]);
 
-  // Fetch tickets when filters change
   useEffect(() => {
     fetchTickets({
       search,
@@ -37,21 +34,8 @@ const TicketList = () => {
     });
   }, [search, status, priority, fetchTickets]);
 
-  const getInitials = (name) => {
-    if (!name) return "CU";
-    return name
-      .split(" ")
-      .map((part) => part[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2);
-  };
-
   return (
     <div>
-      {/* Breadcrumb & Section Header */}
-
-      {/* Filter & Search Bar */}
       <TicketFilters
         search={search}
         setSearch={setSearch}
@@ -63,7 +47,6 @@ const TicketList = () => {
         setViewMode={setViewMode}
       />
 
-      {/* Results Header Count */}
       <div className="mb-3 flex items-center justify-between text-xs text-slate-500">
         <p>
           Showing{" "}
@@ -73,7 +56,6 @@ const TicketList = () => {
         </p>
       </div>
 
-      {/* Main Content Area */}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -83,7 +65,6 @@ const TicketList = () => {
       ) : tickets.length === 0 ? (
         <EmptyState message="No matching tickets found" />
       ) : viewMode === "table" ? (
-        /* Jira / Asana Clean Table View */
         <div className="surface-card overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
@@ -96,7 +77,7 @@ const TicketList = () => {
                   <th className="py-2.5 px-3.5 hidden sm:table-cell">Email</th>
 
                   <th className="py-2.5 px-3.5">Subject</th>
-                  {/* <th className="py-2.5 px-3.5 hidden sm:table-cell">Customer</th> */}
+
                   <th className="py-2.5 px-3.5 w-24">Priority</th>
                   <th className="py-2.5 px-3.5 w-28">Status</th>
 
@@ -110,7 +91,6 @@ const TicketList = () => {
                     onClick={() => navigate(`/tickets/${ticket.id}`)}
                     className="group cursor-pointer hover:bg-slate-50/80 transition-colors"
                   >
-                    {/* Key */}
                     <td className="py-2.5 px-3.5 whitespace-nowrap">
                       <span className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-slate-600 group-hover:border-indigo-200 group-hover:bg-indigo-50/50 group-hover:text-indigo-600">
                         #{ticket.id}
@@ -128,7 +108,6 @@ const TicketList = () => {
                       {ticket.customer_email || "—"}
                     </td>
 
-                    {/* Subject */}
                     <td className="py-2.5 px-3.5 min-w-[200px]">
                       <div className="font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
                         {ticket.subject}
@@ -138,21 +117,13 @@ const TicketList = () => {
                       </div> */}
                     </td>
 
-                    {/* Customer */}
-
-                    {/* Priority */}
                     <td className="py-2.5 px-3.5 whitespace-nowrap">
                       <PriorityBadge priority={ticket.priority} />
                     </td>
 
-                    {/* Status */}
                     <td className="py-2.5 px-3.5 whitespace-nowrap">
                       <StatusBadge status={ticket.status} />
                     </td>
-
-                    {/* Date */}
-
-                    {/* Action Arrow */}
                   </tr>
                 ))}
               </tbody>
@@ -160,7 +131,6 @@ const TicketList = () => {
           </div>
         </div>
       ) : (
-        /* Card Grid View */
         <div className="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {tickets.map((ticket) => (
             <TicketCard key={ticket.id} ticket={ticket} />

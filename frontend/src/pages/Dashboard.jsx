@@ -21,14 +21,8 @@ import EmptyState from "../components/EmptyState";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const {
-    dashboard,
-    tickets,
-    loading,
-    error,
-    fetchTickets,
-    fetchDashboard,
-  } = useTickets();
+  const { dashboard, tickets, loading, error, fetchTickets, fetchDashboard } =
+    useTickets();
 
   const [viewMode, setViewMode] = useState("table");
 
@@ -43,7 +37,8 @@ const Dashboard = () => {
   const resolvedCount = dashboard.resolved || 0;
 
   const openPct = total > 0 ? Math.round((openCount / total) * 100) : 0;
-  const inProgressPct = total > 0 ? Math.round((inProgressCount / total) * 100) : 0;
+  const inProgressPct =
+    total > 0 ? Math.round((inProgressCount / total) * 100) : 0;
   const resolvedPct = total > 0 ? Math.round((resolvedCount / total) * 100) : 0;
 
   const stats = [
@@ -81,20 +76,8 @@ const Dashboard = () => {
     },
   ];
 
-  const getInitials = (name) => {
-    if (!name) return "CU";
-    return name
-      .split(" ")
-      .map((part) => part[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2);
-  };
-
   return (
     <div>
-    
-
       {/* Jira-style 4 Key Metrics Grid */}
       <div className="mb-5 grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
         {stats.map((item) => {
@@ -130,16 +113,18 @@ const Dashboard = () => {
         })}
       </div>
 
-      {/* Jira/Asana Issue Distribution Bar */}
- {total > 0 && (
+  
+      {total > 0 && (
         <div className="surface-card mb-5 p-3.5 sm:p-4">
           <div className="mb-2 flex items-center justify-between text-xs">
-            <span className="font-semibold text-slate-800">Queue Distribution</span>
+            <span className="font-semibold text-slate-800">
+              Queue Distribution
+            </span>
             <span className="text-[11px] text-slate-500">
               {resolvedPct}% Completion Rate
             </span>
           </div>
-          {/* Multi-segment progress bar */}
+         {/* Multi-segment progress bar */}
           <div className="flex h-2 w-full overflow-hidden rounded-md bg-slate-100">
             <div
               style={{ width: `${openPct}%` }}
@@ -180,7 +165,7 @@ const Dashboard = () => {
         </h2>
 
         <div className="flex items-center gap-2">
-          {/* View Mode Toggle */}
+         
           <div className="hidden sm:flex items-center rounded-md border border-slate-200 bg-slate-100/80 p-0.5">
             <button
               type="button"
@@ -233,12 +218,14 @@ const Dashboard = () => {
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50/80 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                   <th className="py-2.5 px-3.5 w-16">No.</th>
-                    <th className="py-2.5 px-3.5 hidden sm:table-cell">Customer</th>
+                  <th className="py-2.5 px-3.5 hidden sm:table-cell">
+                    Customer
+                  </th>
 
-                                        <th className="py-2.5 px-3.5 hidden sm:table-cell">Email</th>
+                  <th className="py-2.5 px-3.5 hidden sm:table-cell">Email</th>
 
                   <th className="py-2.5 px-3.5">Subject</th>
-                  {/* <th className="py-2.5 px-3.5 hidden sm:table-cell">Customer</th> */}
+               
                   <th className="py-2.5 px-3.5 w-24">Priority</th>
                   <th className="py-2.5 px-3.5 w-28">Status</th>
                   <th className="py-2.5 px-3.5 w-10 text-right"></th>
@@ -257,15 +244,8 @@ const Dashboard = () => {
                       </span>
                     </td>
 
-
-                    {/* <td className="py-2.5 px-3.5 min-w-[200px]">
-                      <span className="font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
-                        {ticket.subject}
-                      </span>
-                    </td> */}
                     <td className="py-2.5 px-3.5 hidden sm:table-cell whitespace-nowrap">
                       <div className="flex items-center gap-1.5">
-                       
                         <span className="font-medium text-slate-700">
                           {ticket.customer_name}
                         </span>
@@ -288,7 +268,7 @@ const Dashboard = () => {
                     <td className="py-2.5 px-3.5 whitespace-nowrap">
                       <StatusBadge status={ticket.status} />
                     </td>
-                  
+
                     <td className="py-2.5 px-3.5 text-right whitespace-nowrap">
                       <ChevronRight
                         size={15}
@@ -309,7 +289,7 @@ const Dashboard = () => {
         </div>
       )}
     </div>
-)};
-
+  );
+};
 
 export default Dashboard;

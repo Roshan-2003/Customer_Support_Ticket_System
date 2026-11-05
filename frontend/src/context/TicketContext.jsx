@@ -24,7 +24,7 @@ export const TicketProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Fetch Tickets
+
   const fetchTickets = useCallback(async (params = {}) => {
     try {
       setLoading(true);
@@ -42,7 +42,7 @@ export const TicketProvider = ({ children }) => {
     }
   }, []);
 
-  // Fetch Dashboard Counts
+
   const fetchDashboard = useCallback(async () => {
     try {
       const response = await getDashboardCounts();
@@ -53,7 +53,7 @@ export const TicketProvider = ({ children }) => {
     }
   }, []);
 
-  // Refresh Data
+
   const refreshData = async () => {
     await Promise.all([
       fetchTickets(),

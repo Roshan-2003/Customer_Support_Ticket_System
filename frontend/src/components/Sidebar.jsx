@@ -48,7 +48,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
       path: "/tickets?status=open",
       status: "open",
       icon: CircleDot,
-      count: dashboard?.open || 0,
+      count: dashboard?.open ,
       color: "text-sky-600",
     },
     {
@@ -56,7 +56,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
       path: "/tickets?status=in_progress",
       status: "in_progress",
       icon: Clock,
-      count: dashboard?.in_progress || 0,
+      count: dashboard?.in_progress ,
       color: "text-amber-600",
     },
     {
@@ -64,7 +64,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
       path: "/tickets?status=resolved",
       status: "resolved",
       icon: CheckCircle2,
-      count: dashboard?.resolved || 0,
+      count: dashboard?.resolved ,
       color: "text-emerald-600",
     },
   ];

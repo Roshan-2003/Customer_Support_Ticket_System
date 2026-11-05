@@ -3,22 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Menu, Plus, X } from "lucide-react";
 
 const Navbar = ({ mobileOpen, onToggleMobileMenu }) => {
-  const [navSearch, setNavSearch] = useState("");
-  const navigate = useNavigate();
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (navSearch.trim()) {
-      navigate(`/tickets?search=${encodeURIComponent(navSearch.trim())}`);
-    } else {
-      navigate("/tickets");
-    }
-  };
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white px-3 sm:px-5 lg:px-6">
       <div className="flex h-14 items-center justify-between gap-2 sm:gap-4">
-        {/* Left: Mobile Toggle & Responsive Customer Support Branding */}
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           {/* Mobile hamburger menu toggle */}
           <button
@@ -34,10 +23,6 @@ const Navbar = ({ mobileOpen, onToggleMobileMenu }) => {
      
         </div>
 
-        <form
-          onSubmit={handleSearchSubmit}
-          className="hidden md:flex flex-1 max-w-xs lg:max-w-md mx-2 lg:mx-4 items-center"
-        ></form>
 
         {/* Right: Actions, Status & User Profile */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">

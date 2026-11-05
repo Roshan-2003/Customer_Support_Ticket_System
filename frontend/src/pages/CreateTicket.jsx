@@ -89,10 +89,7 @@ const CreateTicket = () => {
 
   return (
     <div className="max-w-6xl">
-      {/* Header */}
- 
-
-      {/* Form Card */}
+  
       <form
         onSubmit={handleSubmit}
         className="surface-card space-y-4 p-4 sm:p-6"
@@ -130,7 +127,6 @@ const CreateTicket = () => {
           </div>
         </div>
 
-        {/* Issue Subject */}
         <div>
           <label className="mb-1 block text-xs font-semibold text-slate-700">
             Subject / Summary <span className="text-rose-500">*</span>
@@ -146,7 +142,7 @@ const CreateTicket = () => {
           />
         </div>
 
-        {/* Priority Selector (Jira-style visual tiles) */}
+     
         <div>
           <label className="mb-1.5 block text-xs font-semibold text-slate-700">
             Priority Level
@@ -187,7 +183,7 @@ const CreateTicket = () => {
           </div>
         </div>
 
-        {/* Issue Description */}
+    
         <div>
           <label className="mb-1 block text-xs font-semibold text-slate-700">
             Issue Description <span className="text-rose-500">*</span>
@@ -206,7 +202,7 @@ const CreateTicket = () => {
           </p>
         </div>
 
-        {/* Form Actions */}
+     
         <div className="flex items-center justify-end gap-2 border-t border-slate-100 pt-3.5">
           <button
             type="button"
@@ -222,7 +218,7 @@ const CreateTicket = () => {
             className="inline-flex h-8.5 items-center gap-1.5 rounded-md bg-indigo-600 px-4 text-xs font-medium text-white shadow-xs transition-colors hover:bg-indigo-700 disabled:opacity-50"
           >
             <Plus size={15} strokeWidth={2.2} />
-            <span>{loading ? "Creating Issue..." : "Create Issue"}</span>
+            <span>{loading ? "Creating ..." : "Create "}</span>
           </button>
         </div>
       </form>

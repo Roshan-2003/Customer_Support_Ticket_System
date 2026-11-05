@@ -85,7 +85,6 @@ const TicketDetails = () => {
 
   return (
     <div className="space-y-4 pb-8">
-      {/* Top Bar: Breadcrumb + Navigation Actions */}
       <div className="flex flex-wrap items-center justify-between gap-3"></div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
