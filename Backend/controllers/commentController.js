@@ -9,7 +9,6 @@ const { eq, asc } = require("drizzle-orm");
 
 const { validateComment } = require("../utils/validators");
 
-// GET: Comments by Ticket ID
 const getCommentsByTicketId = async (req, res) => {
   try {
     const ticketId = Number(req.params.ticketId);
@@ -52,7 +51,7 @@ const getCommentsByTicketId = async (req, res) => {
   }
 };
 
-// POST: Add Comment
+
 const addComment = async (req, res) => {
   try {
     const ticketId = Number(req.params.ticketId);
