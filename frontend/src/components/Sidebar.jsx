@@ -83,7 +83,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
                 SupportDesk
               </h1>
               <span className="text-[10px] font-medium text-slate-500">
-                Customer Queue
+                Customer Support
               </span>
             </div>
           </div>

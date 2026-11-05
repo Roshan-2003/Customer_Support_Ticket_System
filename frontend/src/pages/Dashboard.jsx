@@ -6,7 +6,7 @@ import {
   CheckCircle2,
   CircleDot,
   ArrowRight,
-  ChevronRight,
+  // ChevronRight,
   LayoutGrid,
   List,
 } from "lucide-react";
@@ -264,12 +264,12 @@ const Dashboard = () => {
                       <StatusBadge status={ticket.status} />
                     </td>
 
-                    <td className="py-2.5 px-3.5 text-right whitespace-nowrap">
+                    {/* <td className="py-2.5 px-3.5 text-right whitespace-nowrap">
                       <ChevronRight
                         size={15}
                         className="inline-block text-slate-300 group-hover:text-indigo-600 transition-colors"
                       />
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>
