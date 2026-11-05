@@ -8,13 +8,10 @@ const {
   pgEnum,
 } = require("drizzle-orm/pg-core");
 
-// Priority Enum
 const priorityEnum = pgEnum("priority", ["low", "medium", "high"]);
 
-// Ticket Status Enum
 const statusEnum = pgEnum("ticket_status", ["open", "in_progress", "resolved"]);
 
-// Tickets Table
 const tickets = pgTable("tickets", {
   id: serial("id").primaryKey(),
 
@@ -41,7 +38,6 @@ const tickets = pgTable("tickets", {
   updated_at: timestamp("updated_at").defaultNow().notNull(),
 });
 
-// Ticket Comments Table
 const ticketComments = pgTable("ticket_comments", {
   id: serial("id").primaryKey(),
 

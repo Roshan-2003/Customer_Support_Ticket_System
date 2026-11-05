@@ -1,17 +1,11 @@
 const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  return (
-    typeof email === "string" &&
-    emailRegex.test(email.trim())
-  );
+  return typeof email === "string" && emailRegex.test(email.trim());
 };
 
 const isRequired = (value) => {
-  return (
-    typeof value === "string" &&
-    value.trim() !== ""
-  );
+  return typeof value === "string" && value.trim() !== "";
 };
 
 const isValidPriority = (priority) => {
@@ -23,13 +17,8 @@ const isValidStatus = (status) => {
 };
 
 const validateTicket = (data) => {
-  const {
-    customer_name,
-    customer_email,
-    subject,
-    description,
-    priority,
-  } = data;
+  const { customer_name, customer_email, subject, description, priority } =
+    data;
 
   const errors = {};
 

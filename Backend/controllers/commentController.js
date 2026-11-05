@@ -1,9 +1,6 @@
 const db = require("../config/db");
 
-const {
-  tickets,
-  ticketComments,
-} = require("../database/schema");
+const { tickets, ticketComments } = require("../database/schema");
 
 const { eq, asc } = require("drizzle-orm");
 
@@ -51,7 +48,6 @@ const getCommentsByTicketId = async (req, res) => {
   }
 };
 
-
 const addComment = async (req, res) => {
   try {
     const ticketId = Number(req.params.ticketId);
@@ -91,9 +87,7 @@ const addComment = async (req, res) => {
       }
 
       if (ticket.status === "resolved") {
-        const error = new Error(
-          "Cannot add comments to a resolved ticket"
-        );
+        const error = new Error("Cannot add comments to a resolved ticket");
         error.statusCode = 400;
         throw error;
       }

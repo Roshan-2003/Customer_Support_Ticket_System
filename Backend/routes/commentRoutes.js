@@ -6,7 +6,6 @@ const {
   addComment,
 } = require("../controllers/commentController");
 
-
 router.get("/:ticketId", getCommentsByTicketId);
 
 router.post("/:ticketId", addComment);

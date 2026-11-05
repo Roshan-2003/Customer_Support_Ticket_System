@@ -44,7 +44,6 @@ const createTicket = async (req, res) => {
   }
 };
 
-
 const getAllTickets = async (req, res) => {
   try {
     const { search = "", status = "", priority = "" } = req.query;
@@ -59,8 +58,8 @@ const getAllTickets = async (req, res) => {
           ilike(tickets.subject, `%${searchTerm}%`),
           ilike(tickets.description, `%${searchTerm}%`),
           ilike(tickets.customer_name, `%${searchTerm}%`),
-          ilike(tickets.customer_email, `%${searchTerm}%`)
-        )
+          ilike(tickets.customer_email, `%${searchTerm}%`),
+        ),
       );
     }
 
@@ -105,7 +104,6 @@ const getAllTickets = async (req, res) => {
   }
 };
 
-
 const getTicketById = async (req, res) => {
   try {
     const id = Number(req.params.id);
@@ -137,7 +135,6 @@ const getTicketById = async (req, res) => {
     });
   }
 };
-
 
 const updateTicketStatus = async (req, res) => {
   try {
@@ -186,7 +183,6 @@ const updateTicketStatus = async (req, res) => {
     });
   }
 };
-
 
 const getDashboardCounts = async (req, res) => {
   try {
