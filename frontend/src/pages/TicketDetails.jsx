@@ -141,7 +141,7 @@ const TicketDetails = () => {
                   disabled={updating}
                   className="h-8.5 w-full rounded-md border border-slate-300 bg-white px-2.5 text-xs font-medium text-slate-800 outline-none transition-colors focus:border-indigo-600 disabled:opacity-60"
                 >
-                  <option value="open">Open (To Do)</option>
+                  <option value="open">Open </option>
                   <option value="in_progress">In Progress</option>
                   <option value="resolved">Resolved (Done)</option>
                 </select>

@@ -45,7 +45,6 @@ const Dashboard = () => {
     {
       title: "Total Issues",
       value: total,
-      // meta: "All recorded tickets",
       icon: Ticket,
       iconBg: "bg-indigo-50 text-indigo-600 border border-indigo-200",
       link: "/tickets",
@@ -53,7 +52,6 @@ const Dashboard = () => {
     {
       title: "Open & Unassigned",
       value: openCount,
-      // meta: `${openPct}% of total volume`,
       icon: CircleDot,
       iconBg: "bg-sky-50 text-sky-600 border border-sky-200",
       link: "/tickets?status=open",
@@ -61,7 +59,6 @@ const Dashboard = () => {
     {
       title: "In Progress",
       value: inProgressCount,
-      // meta: `${inProgressPct}% active resolution`,
       icon: Clock,
       iconBg: "bg-amber-50 text-amber-600 border border-amber-200",
       link: "/tickets?status=in_progress",
@@ -69,7 +66,6 @@ const Dashboard = () => {
     {
       title: "Resolved Issues",
       value: resolvedCount,
-      // meta: `${resolvedPct}% resolved to SLA`,
       icon: CheckCircle2,
       iconBg: "bg-emerald-50 text-emerald-600 border border-emerald-200",
       link: "/tickets?status=resolved",
