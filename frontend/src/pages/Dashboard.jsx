@@ -5,7 +5,6 @@ import {
   Clock,
   CheckCircle2,
   CircleDot,
-  Plus,
   ArrowRight,
   ChevronRight,
   LayoutGrid,
