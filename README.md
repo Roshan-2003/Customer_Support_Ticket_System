@@ -188,13 +188,7 @@ The dashboard provides a summary of customer support tickets:
 - In Progress Tickets
 - Resolved Tickets
 
-## Future Enhancements
 
-- User authentication and authorization.
-- Email notifications for ticket updates.
-- File attachments in tickets.
-- Ticket assignment to support agents.
-- Advanced filtering and reporting.
 
 ## Author
 

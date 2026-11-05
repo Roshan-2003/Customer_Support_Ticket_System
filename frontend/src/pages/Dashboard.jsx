@@ -6,7 +6,6 @@ import {
   CheckCircle2,
   CircleDot,
   ArrowRight,
- 
   LayoutGrid,
   List,
 } from "lucide-react";
@@ -108,7 +107,6 @@ const Dashboard = () => {
         })}
       </div>
 
-  
       {total > 0 && (
         <div className="surface-card mb-5 p-3.5 sm:p-4">
           <div className="mb-2 flex items-center justify-between text-xs">
@@ -119,7 +117,7 @@ const Dashboard = () => {
               {resolvedPct}% Completion Rate
             </span>
           </div>
-         {/* Multi-segment progress bar */}
+          {/* Multi-segment progress bar */}
           <div className="flex h-2 w-full overflow-hidden rounded-md bg-slate-100">
             <div
               style={{ width: `${openPct}%` }}
@@ -160,7 +158,6 @@ const Dashboard = () => {
         </h2>
 
         <div className="flex items-center gap-2">
-         
           <div className="hidden sm:flex items-center rounded-md border border-slate-200 bg-slate-100/80 p-0.5">
             <button
               type="button"
@@ -220,7 +217,7 @@ const Dashboard = () => {
                   <th className="py-2.5 px-3.5 hidden sm:table-cell">Email</th>
 
                   <th className="py-2.5 px-3.5">Subject</th>
-               
+
                   <th className="py-2.5 px-3.5 w-24">Priority</th>
                   <th className="py-2.5 px-3.5 w-28">Status</th>
                   <th className="py-2.5 px-3.5 w-10 text-right"></th>
@@ -263,8 +260,6 @@ const Dashboard = () => {
                     <td className="py-2.5 px-3.5 whitespace-nowrap">
                       <StatusBadge status={ticket.status} />
                     </td>
-
-                   
                   </tr>
                 ))}
               </tbody>
